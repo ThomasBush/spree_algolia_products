@@ -1,0 +1,41 @@
+<div id="product-index-main" class="container" data-rails-env="<%= Rails.env %>">
+  <div id="products" class="row" data-hook>
+    <aside class="col-md-3">
+      <section class="facet-wrapper">
+        <ul id="product_type" class="list-unstyled"></ul>
+        <ul id="price" class="list-unstyled"></ul>
+        <ul id="size" class="list-unstyled"></ul>
+        <ul id="yuleys_size" class="list-unstyled"></ul>
+        <ul id="color" class="list-unstyled"></ul>
+        <ul id="tint" class="list-unstyled"></ul>
+        <ul id="lens_coating" class="list-unstyled"></ul>
+      </section>
+
+      <div id="product-filter-summary">
+        <div id="current-refined-values"></div>
+        <br/>
+        <div id="clear-all"></div>
+      </div>
+    </aside>
+
+    <div class="results-wrapper col-md-9">
+      <div id="section-search" class="col-md-12">
+        <div id="search_input">
+          <%= text_field_tag :q, params[:q], placeholder: 'Filter current selection...', class:'form-control' %>
+            <span id="search-btn" class="input-group-addon"><i id="input-loop" class="fa fa-search"></i></span>
+        </div>
+      </div>
+      <section id="results-topbar" class="hidden">
+        <div id="stats" class="text-muted"></div>
+      </section>
+      <main id="hits" class="search-results"></main>
+      <div class="center-pagination">
+        <section id="hits-per-page-wrap">
+          <span class="product-per-page-title">Products Per Page</span>
+          <div id="hits-per-page-selector"></div>
+        </section>
+        <div id="pagination-wrap"></div>
+      </div>
+    </div>
+  </div>
+</div>

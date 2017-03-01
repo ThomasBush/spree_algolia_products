@@ -1,0 +1,45 @@
+module AlgoliaProductIndex
+  extend ActiveSupport::Concern
+
+  included do
+    include AlgoliaSearch
+
+    def status?
+      available_on < Time.now && deleted_at.nil?
+    end
+
+    algoliasearch index_name: "spree_products_#{Rails.env}", if: :status? do
+      attribute :id, :position, :name, :code
+
+      attribute :url do
+        "/products/#{slug}"
+      end
+
+      attribute :image do
+        if images.first.present?
+          images.first.attachment.url(:small)
+        else
+          "assets/noimage/small.png"
+        end
+      end
+
+      attribute :price do
+        display_price.to_html.gsub('$','')
+      end
+
+      attribute :product_type do
+        taxons.find_by('permalink LIKE ?', 'product-types/%').name
+      end
+
+      attrs = ['size', 'yuleys_size', 'color', 'tint', 'lens_coating']
+
+      attrs.each do |attr|
+        attribute attr.to_sym do
+
+          attribute = Spree::OptionType.find_by('name = ?', attr)
+          variants.map{|v| v.option_values.where(option_type: attribute).map(&:presentation)}.flatten.uniq
+        end
+      end
+    end
+  end
+end
