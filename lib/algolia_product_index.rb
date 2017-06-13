@@ -18,8 +18,10 @@ module AlgoliaProductIndex
       attribute :image do
         if images.first.present?
           images.first.attachment.url(:small)
+        elsif variants.first.images.first.present?
+          variants.first.images.first.attachment.url(:small)
         else
-          "assets/noimage/small.png"
+          ActionController::Base.helpers.image_url("no_image.png")
         end
       end
 
