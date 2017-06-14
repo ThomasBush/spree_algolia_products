@@ -27,6 +27,7 @@ module AlgoliaProductIndex
             variants.first.images.first.attachment.url(:small)
           else
             no_image
+          end
         else
           no_image
         end
