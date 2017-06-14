@@ -8,6 +8,10 @@ module AlgoliaProductIndex
       available_on < Time.now && deleted_at.nil?
     end
 
+    def no_image
+      ActionController::Base.helpers.image_url("no_image.png")
+    end
+
     algoliasearch index_name: "spree_products_#{Rails.env}", if: :status? do
       attribute :id, :position, :name, :code
 
@@ -16,12 +20,15 @@ module AlgoliaProductIndex
       end
 
       attribute :image do
-        if images.first.present?
-          images.first.attachment.url(:small)
-        elsif variants.first.images.first.present?
-          variants.first.images.first.attachment.url(:small)
+        if images.any?
+          if images.first.present?
+            images.first.attachment.url(:small)
+          elsif variants.first.images.first.present?
+            variants.first.images.first.attachment.url(:small)
+          else
+            no_image
         else
-          ActionController::Base.helpers.image_url("no_image.png")
+          no_image
         end
       end
 
