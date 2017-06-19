@@ -9,7 +9,7 @@ module AlgoliaProductIndex
     end
 
     def no_image
-      ActionController::Base.helpers.image_url("no_image.png")
+      ActionController::Base.helpers.image_url('noimage/small.png')
     end
 
     algoliasearch index_name: "spree_products_#{Rails.env}", if: :status? do
