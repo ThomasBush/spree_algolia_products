@@ -20,14 +20,10 @@ module AlgoliaProductIndex
       end
 
       attribute :image do
-        if images.any?
-          if images.first.present?
-            images.first.attachment.url(:small)
-          elsif variants.first.images.first.present?
-            variants.first.images.first.attachment.url(:small)
-          else
-            no_image
-          end
+        if images.present?
+          images.first.attachment.url(:small)
+        elsif variants.first.images.first.present?
+          variants.first.images.first.attachment.url(:small)
         else
           no_image
         end
