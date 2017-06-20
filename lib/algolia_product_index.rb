@@ -22,7 +22,7 @@ module AlgoliaProductIndex
       attribute :image do
         if images.present?
           images.first.attachment.url(:small)
-        elsif variants.first.images.first.present?
+        elsif variants.present? && variants.first.images.present?
           variants.first.images.first.attachment.url(:small)
         else
           no_image
