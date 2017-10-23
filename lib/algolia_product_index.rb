@@ -5,7 +5,7 @@ module AlgoliaProductIndex
     include AlgoliaSearch
 
     def status?
-      available_on < Time.now && deleted_at.nil?
+      available_on < Time.now && discontinue_on.nil?
     end
 
     def no_image
