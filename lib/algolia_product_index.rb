@@ -34,7 +34,7 @@ module AlgoliaProductIndex
       end
 
       attribute :product_type do
-        taxons.find_by('permalink LIKE ?', 'product-types/%').name
+        taxons.find_by('permalink LIKE ?', 'product-types/%').try(:name)
       end
 
       attrs = ['size', 'yuleys_size', 'color', 'tint', 'lens_coating']
