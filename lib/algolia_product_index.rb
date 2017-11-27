@@ -37,6 +37,17 @@ module AlgoliaProductIndex
         taxons.find_by('permalink LIKE ?', 'product-types/%').try(:name)
       end
 
+      attribute :industries do
+        @product_industries = []
+        industries = ['construction', 'oil-and-gas', 'extrication', 'needlestick']
+        industries.each do |industry|
+          if taxons.find_by(permalink: industry).present?
+            @product_industries << industry
+          end
+        end
+        @product_industries
+      end
+
       attrs = ['size', 'yuleys_size', 'color', 'tint', 'lens_coating']
 
       attrs.each do |attr|

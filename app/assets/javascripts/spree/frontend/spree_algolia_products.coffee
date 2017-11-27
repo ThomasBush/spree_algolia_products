@@ -1,11 +1,21 @@
 $(document).on 'ready page:load', ->
   if $('#product-index-main').length > 0
     rails_env  = $('#product-index-main').data('rails-env')
+    current_industry  = $('#product-index-main').data('current-industry')
+    search_parameters = {}
+
+    if current_industry.length > 0
+      search_parameters = {
+        facets: ['industries']
+        facetsRefinements:
+          industries: [ current_industry ]
+      }
 
     search = instantsearch(
       appId: 'AJCEDEJVN8'
       apiKey: 'a79a1de365422bb69ce8b0b1af128e43'
       indexName: 'spree_products_' + rails_env
+      searchParameters: search_parameters
       urlSync: {
         threshold: 300
         getHistoryState: ->
@@ -14,7 +24,6 @@ $(document).on 'ready page:load', ->
 
     search.on 'render', ->
       $('[data-toggle="tooltip"]').tooltip()
-
 
     noResultsTemplate = '<div class="text-center">No results found matching <strong>{{query}}</strong>.</div>'
 
@@ -46,6 +55,7 @@ $(document).on 'ready page:load', ->
 
     search.addWidget instantsearch.widgets.clearAll(
       container: '#clear-all'
+      excludeAttributes: 'industries'
       templates:
         link: 'Clear all filters <i class="fa fa-times" aria-hidden="true"></i>'
       cssClasses:
@@ -155,6 +165,8 @@ $(document).on 'ready page:load', ->
 
     search.addWidget instantsearch.widgets.currentRefinedValues(
       container: '#current-refined-values'
+      attributes: [{name: 'product_type'}, {name: 'size'}, {name: 'yuleys_size'}, {name: 'color'}, {name: 'tint'}, {name: 'lens_coating'}]
+      onlyListedAttributes: true
       clearAll: false
       templates:
         item: '<li>{{ name }}<i class="fa fa-times pull-right" aria-hidden="true"></i></li>'
@@ -189,8 +201,6 @@ $(document).on 'ready page:load', ->
 $(document).on 'click', '.facet-wrapper .list-unstyled', (e) ->
   this_panel = $(this).find('.panel-root')
   if this_panel.hasClass('ais-root__collapsed')
-    # other_panels = $('.panel-root').not(this_panel)
-    # other_panels.addClass('ais-root__collapsed').find('.panel-title i').removeClass('fa-minus')
     this_panel.removeClass('ais-root__collapsed').find('.panel-title i').addClass('fa-minus')
   else
     this_panel.find('.panel-title i').removeClass('fa-minus')
