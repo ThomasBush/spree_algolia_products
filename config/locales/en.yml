@@ -1,5 +1,6 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  spree:
+    algolia_products_title: "Spree Algolia Products"
+    algolia_products_reindex_button: "Reindex Products"
+    algolia_api_reindex_response: "Algolia reindex started.  This process can take a few minutes"
+    algolia_web_reindex_response: "Successfully updated Algolia Product Index"

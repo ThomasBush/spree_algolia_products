@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_algolia_products'
-  s.version     = '3.1.8'
+  s.version     = '3.1.9'
   s.summary     = 'Integrates Spree with Algolia for product search'
   s.description = 'Integrates Spree with Algolia for product search'
   s.required_ruby_version = '>= 2.1.0'

@@ -1,0 +1,7 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:algolia_products_title) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:algolia_products_reindex_button), reindexer_admin_algolia_settings_path, class: "btn-success", icon: 'refresh', id: 'admin_reindex_algolia' %>
+<% end %>
