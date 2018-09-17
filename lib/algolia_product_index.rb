@@ -13,7 +13,7 @@ module AlgoliaProductIndex
     end
 
     def min_price_is_greater_than_zero?
-      display_price.to_html.gsub('$','') > 0
+      display_price.money.fractional > 0
     end
 
     def status?
