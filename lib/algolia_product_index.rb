@@ -4,8 +4,20 @@ module AlgoliaProductIndex
   included do
     include AlgoliaSearch
 
+    def is_available?
+      available_on < Time.now
+    end
+
+    def is_not_discontinued?
+      discontinue_on.nil? || discontinue_on > Time.now
+    end
+
+    def min_price_is_greater_than_zero?
+      display_price.to_html.gsub('$','') > 0
+    end
+
     def status?
-      available_on < Time.now && (discontinue_on.nil? || discontinue_on > Time.now)
+      is_available? && is_not_discontinued? && min_price_is_greater_than_zero?
     end
 
     def no_image
